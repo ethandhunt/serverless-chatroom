@@ -95,7 +95,11 @@ def notif_input():
         global notif_ready
         notif_ready = True
         while True:
-            broadcast_global(input(''))
+            thing = input()
+            if thing.startswith('!join'):
+                print('\n=== Node joiner thread ended ===')
+            else:
+                broadcast_global(thing)
     do()
 
 def notif_handler():
@@ -156,7 +160,3 @@ stillSending = 0
 start_thread(node_listener)
 start_thread(notif_handler)
 start_thread(broadcast_handler)
-try:
-    join(socket.gethostbyaddr(input('Enter hostname for node: '))[2][0])
-except KeyboardInterrupt:
-    print('\n=== Node joiner thread ended ===')
